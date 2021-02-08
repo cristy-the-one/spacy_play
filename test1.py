@@ -43,8 +43,10 @@ def pos_words (sentence, token, ptag):
 
 
 cleaned_list = [cleanup(word.text) for word in doc if not isNoise(word)]
+print("\nclean list")
 print(Counter(cleaned_list).most_common(7))
 
+print("\nentities and labels")
 labels = set([w.label_ for w in doc.ents])
 for label in labels:
     entities = [cleanup(e.text, lower=False) for e in doc.ents if label==e.label_]
@@ -53,11 +55,14 @@ for label in labels:
 
 vulcan = [sent for sent in doc.sents if 'vulcan' in sent.text.lower()]
 
-sentence = vulcan[3]
+where_to_find_vulcan = 4
+
+print("\nunderstanding <<vulcan>> in sentence ", where_to_find_vulcan)
+sentence = vulcan[where_to_find_vulcan]
 for word in sentence:
 	print (word, ': ', str(list(word.children)))
 
 
 found_adjective = pos_words(doc, 'vulcan', "ADJ")
 
-print(found_adjective)
+print("\nvulcan has adjectives: ", found_adjective)
